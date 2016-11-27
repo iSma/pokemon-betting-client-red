@@ -1,0 +1,22 @@
+<ion-header>
+  <ion-navbar>
+    <ion-title>Home</ion-title>
+  </ion-navbar>
+</ion-header>
+
+<ion-content padding>
+  <h2>Next fights!</h2>
+  <ion-card *ngFor="let battle of battles" >
+    <ion-card-content >
+      <ion-card-title (click)="toBattlePage(battle)">
+         <button ion-button color="light" >
+           Battle #{{battle.id}}
+         </button>
+      </ion-card-title>
+      <ion-item>
+        <p>Start at : {{battle.startTime}}</p>
+        <button ion-button [navPush]="makeBetPage" [navParams]="battle">Bet!!</button>
+      </ion-item>
+    </ion-card-content>
+  </ion-card>
+</ion-content>
