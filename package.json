@@ -1,7 +1,6 @@
 {
-  "name": "ionic-hello-world",
-  "author": "Ionic Framework",
-  "homepage": "http://ionicframework.com/",
+  "name": "pokemon-betting-client-red",
+  "author": "Team Red",
   "private": true,
   "scripts": {
     "build": "ionic-app-scripts build",
