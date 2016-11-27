@@ -6,79 +6,17 @@
 
 <ion-content padding>
   <h2>Next fights!</h2>
-  <ion-card>
-    <ion-card-content>
-      <ion-card-title>
-        <strong>Serena</strong> vs <strong>Bonnie</strong>
+  <ion-card *ngFor="let battle of battles" >
+    <ion-card-content >
+      <ion-card-title (click)="toBattlePage(battle)">
+         <button ion-button color="light" >
+           Battle #{{battle.id}}
+         </button>
       </ion-card-title>
       <ion-item>
-        <ion-icon name="star-outline" item-left large></ion-icon>
-        <h2>Serena</h2>
-        <p>1620 points</p>
+        <p>Start at : {{battle.startTime}}</p>
+        <button ion-button [navPush]="makeBetPage" [navParams]="battle">Bet!!</button>
       </ion-item>
-      <ion-item>
-        <ion-icon name="star-outline" item-left large></ion-icon>
-        <h2>Bonnie</h2>
-        <p>327 points</p>
-      </ion-item>
-      <p style="text-align: right;">In <em>7 minutes</em></p>
-    </ion-card-content>
-  </ion-card>
-
-    <ion-card>
-    <ion-card-content>
-      <ion-card-title>
-        <strong>Serena</strong> vs <strong>Bonnie</strong>
-      </ion-card-title>
-      <ion-item>
-        <ion-icon name="star-outline" item-left large></ion-icon>
-        <h2>Serena</h2>
-        <p>1620 points</p>
-      </ion-item>
-      <ion-item>
-        <ion-icon name="star-outline" item-left large></ion-icon>
-        <h2>Bonnie</h2>
-        <p>327 points</p>
-      </ion-item>
-      <p style="text-align: right;">In <em>7 minutes</em></p>
-    </ion-card-content>
-  </ion-card>
-
-    <ion-card>
-    <ion-card-content>
-      <ion-card-title>
-        <strong>Serena</strong> vs <strong>Bonnie</strong>
-      </ion-card-title>
-      <ion-item>
-        <ion-icon name="star-outline" item-left large></ion-icon>
-        <h2>Serena</h2>
-        <p>1620 points</p>
-      </ion-item>
-      <ion-item>
-        <ion-icon name="star-outline" item-left large></ion-icon>
-        <h2>Bonnie</h2>
-        <p>327 points</p>
-      </ion-item>
-      <p style="text-align: right;">In <em>7 minutes</em></p>
-    </ion-card-content>
-  </ion-card>
-
-    <ion-card>
-    <ion-card-content>
-      <ion-card-title>
-        <strong>Serena</strong> vs <strong>Bonnie</strong>
-      </ion-card-title>
-      <ion-item>
-        <ion-icon name="star-outline" item-left large></ion-icon>
-        <h2>Serena</h2>
-        <p>1620 points</p>
-      </ion-item>
-      <ion-item>
-        <ion-icon name="star-outline" item-left large></ion-icon>
-        <h2>Bonnie</h2>
-        <p>327 points</p>
-      </ion-item>
-      <p style="text-align: right;">In <em>7 minutes</em></p>
     </ion-card-content>
   </ion-card>
 </ion-content>
