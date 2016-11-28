@@ -6,6 +6,7 @@ import { Battle } from '../../models/models';
 import { MasterService } from '../../providers/master-service';
 import { MakeBetPage } from '../makeBet/makeBet';
 import { BattlePage } from '../battle/battle';
+import { LoginPage } from '../login/login';
 
 @Component({
   selector: 'page-home',
@@ -16,6 +17,7 @@ import { BattlePage } from '../battle/battle';
 export class HomePage {
   public battles: Battle[];
   public makeBetPage = MakeBetPage;
+  public loginPage = LoginPage;
 
   constructor(public navCtrl: NavController, public masterService: MasterService) {
   	this.load();
@@ -27,4 +29,8 @@ export class HomePage {
   }
 
   toBattlePage(battle) {this.navCtrl.push(BattlePage,battle)};
+
+  getLocalTime(time) {
+    return new Date(time);
+  }
 }

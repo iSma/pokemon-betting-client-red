@@ -1,6 +1,11 @@
 <ion-header>
   <ion-navbar>
     <ion-title>Home</ion-title>
+    <ion-buttons end>
+      <button ion-button icon-only [navPush]="loginPage">
+        <ion-icon name="person"></ion-icon>
+      </button>
+    </ion-buttons>
   </ion-navbar>
 </ion-header>
 
@@ -14,7 +19,7 @@
          </button>
       </ion-card-title>
       <ion-item>
-        <p>Start at : {{battle.startTime}}</p>
+        <p>Start : {{getLocalTime(battle.startTime)}} </p>
         <button ion-button [navPush]="makeBetPage" [navParams]="battle">Bet!!</button>
       </ion-item>
     </ion-card-content>
