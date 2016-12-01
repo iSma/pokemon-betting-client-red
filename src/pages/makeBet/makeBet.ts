@@ -16,14 +16,18 @@ import { BattlesService } from '../../providers/battles-service';
 })
 export class MakeBetPage {
 public eventId;
+public bet = {
+  choice:0,
+  amount:0
+};
   constructor(public navCtrl: NavController, public params:NavParams, private alertCtrl: AlertController) {
   	this.eventId = params.data;
   }
 
-  presentConfirm(trainer) {
+  logForm() {
   let alert = this.alertCtrl.create({
     title: 'Confirm bet',
-    message: `You really want to bet on trainer${trainer}`,
+    message: `You really want to bet ${this.bet.amount} on trainer${this.bet.choice}`,
     buttons: [
       {
         text: 'Cancel',
@@ -35,7 +39,7 @@ public eventId;
       {
         text: 'Accept',
         handler: () => {
-          console.log('bet accepted');
+          console.log(this.bet.amount);
         }
       }
     ]

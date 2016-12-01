@@ -1,4 +1,5 @@
 import { NgModule } from '@angular/core';
+import { Storage } from '@ionic/storage';
 import { IonicApp, IonicModule } from 'ionic-angular';
 import { MyApp } from './app.component';
 import { HomePage } from '../pages/home/home';
@@ -31,7 +32,8 @@ import { MasterService } from '../providers/master-service';
     Signin
   ],
   providers: [
-    MasterService
+    MasterService,
+    Storage
   ]
 })
 export class AppModule {}

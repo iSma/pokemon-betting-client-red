@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { NavController, NavParams } from 'ionic-angular';
 import { MasterService } from '../../providers/master-service';
 import { Battle, Bet} from '../../models/models'
+import { MakeBetPage } from '../makeBet/makeBet';
 
 /*
   Generated class for the Battle page.
@@ -17,8 +18,10 @@ import { Battle, Bet} from '../../models/models'
 export class BattlePage {
   public bets: Bet[];
   public battle: Battle;
+  public makeBetPage = MakeBetPage;
 
-  constructor(public navCtrl: NavController,public params:NavParams,public masterService: MasterService) {
+
+  constructor(public navCtrl: NavController,public params:NavParams, public masterService:MasterService) {
   	this.battle = params.data;
     this.load();
   }
@@ -29,7 +32,7 @@ export class BattlePage {
   }
 
   ionViewDidLoad() {
-    console.log(this.battle);
+    console.log("battle page");
   }
 
 }

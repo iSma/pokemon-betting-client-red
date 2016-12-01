@@ -4,9 +4,12 @@ import { NavController } from 'ionic-angular';
 
 import { Battle } from '../../models/models';
 import { MasterService } from '../../providers/master-service';
+
 import { MakeBetPage } from '../makeBet/makeBet';
 import { BattlePage } from '../battle/battle';
 import { LoginPage } from '../login/login';
+
+import moment from 'moment'
 
 @Component({
   selector: 'page-home',
@@ -28,9 +31,11 @@ export class HomePage {
      .subscribe((data) => { this.battles = data });
   }
 
-  toBattlePage(battle) {this.navCtrl.push(BattlePage,battle)};
+  toBattlePage(battle) {
+    this.navCtrl.push(BattlePage,battle);
+  };
 
   getLocalTime(time) {
-    return new Date(time);
+    return moment(new Date(time)).fromNow();
   }
 }

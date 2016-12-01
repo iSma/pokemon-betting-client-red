@@ -14,12 +14,12 @@
 
 
 <ion-content padding>
-<label class="item item-input">
-  <span class="input-label" (ngModel) = 'amount' >Amount</span>
-  <input type="number">
-</label>
-<p>
-<button ion-button (click)="presentConfirm(1)">Trainer 1</button>
-<button ion-button (click)="presentConfirm(2)">Trainer 2</button>
-</p>
+<form (ngSubmit)="logForm()">
+      <ion-item>
+        <ion-label>Amount</ion-label>
+        <ion-input type="number" [(ngModel)]="bet.amount" name="amount"></ion-input>
+      </ion-item>
+      <button ion-button (click)="bet.choice = 1" type="submit" block>Trainer1</button>
+      <button ion-button (click)="bet.choice = 2" type="submit" block>Trainer2</button>
+</form>
 </ion-content>
