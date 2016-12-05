@@ -19,6 +19,9 @@
          </button>
       </ion-card-title>
       <ion-item>
+      <p >  {{getTrainer(battle.Teams[0].TrainerId).name}} vs {{getTrainer(battle.Teams[1].TrainerId).name}} </p>
+      </ion-item>
+      <ion-item>
         <p>Start  {{getLocalTime(battle.startTime)}} </p>
         <button ion-button [navPush]="makeBetPage" [navParams]="battle">Bet!!</button>
       </ion-item>

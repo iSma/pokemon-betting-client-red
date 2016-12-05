@@ -2,8 +2,15 @@ export class Battle {
   id: string;
   startTime: string;
   Teams: [{
-    TrainerId: string
+    TrainerId: number;
   }]
+}
+
+export class Trainer{
+  id: string;
+  name: string;
+  gender: string;
+  country: string;
 }
 
 export class Bet {

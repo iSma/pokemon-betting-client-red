@@ -5,7 +5,7 @@ import { Observable } from 'rxjs/Rx';
 import 'rxjs/add/operator/map';
 import { NavController} from 'ionic-angular';
 
-import { Battle, Bet, Login, Account} from '../models/models';
+import { Battle, Bet, Login, Account, Trainer} from '../models/models';
 import { HomePage } from '../pages/home/home'
 
 
@@ -37,6 +37,12 @@ export class MasterService {
 
   loadBetsOfBattle(eventId): Observable<Bet[]>{
     return this.http.get(`${API}/battles/${eventId}/bets`)
+    .map(res => res.json())
+    .catch(this.handleError);
+  }
+
+  loadTrainer(): Observable<Trainer[]>{
+    return this.http.get(`${API}/trainers`)
     .map(res => res.json())
     .catch(this.handleError);
   }

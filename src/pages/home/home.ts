@@ -2,7 +2,7 @@ import { Component } from '@angular/core';
 
 import { NavController } from 'ionic-angular';
 
-import { Battle } from '../../models/models';
+import { Battle, Trainer} from '../../models/models';
 import { MasterService } from '../../providers/master-service';
 
 import { MakeBetPage } from '../makeBet/makeBet';
@@ -19,16 +19,29 @@ import moment from 'moment'
 
 export class HomePage {
   public battles: Battle[];
+  public trainers: Trainer[];
+  public loadingDone: boolean;
+  public n;
+
   public makeBetPage = MakeBetPage;
   public loginPage = LoginPage;
 
   constructor(public navCtrl: NavController, public masterService: MasterService) {
-  	this.load();
+    this.loadingDone = false;
+    this.load();
+    this.n = 0;
+
   }
 
   load() {
-     this.masterService.loadBattle()
-     .subscribe((data) => { this.battles = data });
+    this.masterService.loadTrainer()
+      .subscribe((data) => this.trainers = data);
+    this.masterService.loadBattle()
+      .subscribe((data) => this.battles = data);
+  }
+
+  getTrainer(id){
+    return this.trainers.find(t => t.id == id);
   }
 
   toBattlePage(battle) {
