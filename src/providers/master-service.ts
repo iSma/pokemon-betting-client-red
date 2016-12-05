@@ -5,7 +5,7 @@ import { Observable } from 'rxjs/Rx';
 import 'rxjs/add/operator/map';
 import { NavController} from 'ionic-angular';
 
-import { Battle, Bet, Login, Response} from '../models/models';
+import { Battle, Bet, Login, Account} from '../models/models';
 import { HomePage } from '../pages/home/home'
 
 
@@ -41,16 +41,30 @@ export class MasterService {
     .catch(this.handleError);
   }
 
-  postLogin(login: Login){
+  postLogin(login){
     let body = JSON.stringify(login);
-    this.http.post(`${API}/login`, body)
-    .catch(this.loginError)
-    .subscribe(data => {
-      this.setToken(data._body);
+    return this.http.post(`${API}/login`, body)
+    .toPromise()
+    .then(data => {
+      this.setToken(data['_body']);
       this.getToken().then(t => console.log(t));
+      console.log('request new token');
       setTimeout(() => this.refreshToken(), 240000);
-      this.navCtrl.push(HomePage);;
+      return 'success';
     })
+    .catch(error => error);
+  }
+
+  postUser(newAccount: Account){
+    let body = JSON.stringify(newAccount);
+    return this.http.post(`${API}/users`, body)
+    .toPromise()
+    .then( (value:any) => {
+      console.log(newAccount);
+      return 'sucess';
+    })
+    .catch(error => error);
+
   }
 
   refreshToken(){
@@ -60,20 +74,17 @@ export class MasterService {
       console.log('old: '+oldtoken);
       this.http.get(`${API}/login?token=${oldtoken}`)
       .catch(this.handleError)
-      .subscribe( data =>{
-        this.setToken(data['_body']);
+      .toPromise()
+      .then( data =>{
+        this.setToken(data._body);
         setTimeout(() => this.refreshToken(), 240000);
+        console.log("new: "+data._body)
       })
      })
 
   }
 
   private handleError(error) {
-    console.error(error);
-    return Observable.throw(error.json().error || 'Server error');
-  }
-
-  private loginError(error){
     console.error(error);
     return Observable.throw(error.json().error || 'Server error');
   }

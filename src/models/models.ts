@@ -1,6 +1,9 @@
 export class Battle {
   id: string;
   startTime: string;
+  Teams: [{
+    TrainerId: string
+  }]
 }
 
 export class Bet {
@@ -13,6 +16,8 @@ export class Login {
   pass: string;
 }
 
-export class Response {
-  _body: string;
+export class Account {
+  name: string;
+  mail: string;
+  pass: string;
 }
