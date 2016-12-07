@@ -101,12 +101,20 @@ export class MasterService {
       return this.http.post(`${API}/users/${id}/transactions?token=${t}`, body)
       .toPromise()
       .catch(error => error)
-      .then(resp => resp)
+      .then(resp => resp.json())
     })
   }
 
   getBalance(){
-    return 100000;
+    return this.getToken().then(t =>{
+      let decoded = jwtDecode(t);
+      let id = decoded.sub;
+      console.log(decoded);
+      return this.http.get(`${API}/users/${id}/balance?token=${t}`)
+      .toPromise()
+      .catch(error => error)
+      .then(resp => resp.json())
+    })
   }
 
   refreshToken(){

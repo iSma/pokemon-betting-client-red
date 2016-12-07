@@ -20,9 +20,7 @@ export class UserPage {
   public token;
   public balance;
   constructor(public navCtrl: NavController, public masterService: MasterService) {
-    masterService.getLogin().then(l => this.login = l);
-    this.masterService.getToken().then(t => this.token = t);
-    this.balance = this.masterService.getBalance();
+    this.load();
   }
 
 
@@ -31,9 +29,14 @@ export class UserPage {
       r => {
       console.log(r);
       this.amount = 0;
-      this.balance = r['_body']['balance'];
+      this.balance = r.balance;
     })
+  }
 
+  load(){
+    this.masterService.getLogin().then(l => this.login = l);
+    this.masterService.getToken().then(t => this.token = t);
+    this.masterService.getBalance().then(b => {console.log(b.balance); this.balance = b.balance});
   }
 
 
