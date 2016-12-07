@@ -4,8 +4,9 @@ import { Storage } from '@ionic/storage';
 import { Observable } from 'rxjs/Rx';
 import 'rxjs/add/operator/map';
 import { NavController} from 'ionic-angular';
+import jwtDecode from 'jwt-decode';
 
-import { Battle, Bet, Login, Account} from '../models/models';
+import { Battle, Bet, Login, Account, Trainer} from '../models/models';
 import { HomePage } from '../pages/home/home'
 
 
@@ -14,6 +15,7 @@ const HEAD = new Headers({'Content-Type': 'application/json'});
 
 @Injectable()
 export class MasterService {
+  public static ISLOGGED;
   constructor(public http : Http, public storage : Storage, public navCtrl : NavController) {
     console.log('Hello BattlesService Provider');
   }
@@ -29,6 +31,10 @@ export class MasterService {
     })
   }
 
+  getLogin(): Promise<Login>{
+    return this.storage.get('login').then(t => t);
+  }
+
   loadBattle(): Observable<Battle[]> {
     return this.http.get(`${API}/battles`)
     .map(res => res.json())
@@ -37,6 +43,12 @@ export class MasterService {
 
   loadBetsOfBattle(eventId): Observable<Bet[]>{
     return this.http.get(`${API}/battles/${eventId}/bets`)
+    .map(res => res.json())
+    .catch(this.handleError);
+  }
+
+  loadTrainer(): Observable<Trainer[]>{
+    return this.http.get(`${API}/trainers`)
     .map(res => res.json())
     .catch(this.handleError);
   }
@@ -50,6 +62,8 @@ export class MasterService {
       this.getToken().then(t => console.log(t));
       console.log('request new token');
       setTimeout(() => this.refreshToken(), 240000);
+      MasterService.ISLOGGED = true;
+      this.storage.set('login',login);
       return 'success';
     })
     .catch(error => error);
@@ -67,6 +81,34 @@ export class MasterService {
 
   }
 
+  postBet(type, id, choice){
+    let body = JSON.stringify(choice);
+    return this.getToken().then(t =>{
+      return this.http.post(`${API}/${type}/${id}/bets?token=${t}`, body)
+      .toPromise()
+      .catch(error => error)
+      .then(resp => resp)
+    })
+  }
+
+  postTransaction(amount){
+    let body = JSON.stringify(amount);
+    console.log(body);
+    return this.getToken().then(t =>{
+      let decoded = jwtDecode(t);
+      let id = decoded.sub;
+      console.log(decoded);
+      return this.http.post(`${API}/users/${id}/transactions?token=${t}`, body)
+      .toPromise()
+      .catch(error => error)
+      .then(resp => resp)
+    })
+  }
+
+  getBalance(){
+    return 100000;
+  }
+
   refreshToken(){
     console.log("refresh token")
     this.getToken().then(t => {
@@ -82,6 +124,10 @@ export class MasterService {
       })
      })
 
+  }
+
+  isLogged(){
+    return MasterService.ISLOGGED;
   }
 
   private handleError(error) {

@@ -1,5 +1,7 @@
 import { Component } from '@angular/core';
-import { NavController, NavParams, AlertController } from 'ionic-angular';
+import { NavController, NavParams, AlertController, Events } from 'ionic-angular';
+import { MasterService } from '../../providers/master-service';
+
 
 import { Battle } from '../../models/models';
 import { BattlesService } from '../../providers/battles-service';
@@ -12,16 +14,19 @@ import { BattlesService } from '../../providers/battles-service';
 */
 @Component({
   selector: 'page-makeBet',
-  templateUrl: 'makeBet.html'
+  templateUrl: 'makeBet.html',
+  providers: [MasterService]
 })
 export class MakeBetPage {
 public eventId;
+public eventType;
 public bet = {
   choice:0,
   amount:0
 };
-  constructor(public navCtrl: NavController, public params:NavParams, private alertCtrl: AlertController) {
-  	this.eventId = params.data;
+  constructor(public navCtrl: NavController, public params:NavParams, private alertCtrl: AlertController, public masterService: MasterService, public events: Events) {
+  	this.eventId = params.data.event.id;
+    this.eventType = params.data.type;
   }
 
   logForm() {
@@ -39,7 +44,13 @@ public bet = {
       {
         text: 'Accept',
         handler: () => {
-          console.log(this.bet.amount);
+          this.masterService.postBet(this.eventType,this.eventId,this.bet)
+          .then(rep =>  {
+            this.events.publish('reloadBattlePage');
+            console.log(rep);
+            this.navCtrl.pop();
+          })
+          .catch(err => console.log(err));
         }
       }
     ]
@@ -47,6 +58,7 @@ public bet = {
 
   alert.present();
   }
+
 
   ionViewDidLoad() {
     console.log(this.eventId);

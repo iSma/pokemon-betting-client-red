@@ -14,17 +14,30 @@
 
 
 <ion-content padding>
-<h3>Bets:</h3>
-Todo: add battle info
-<ion-card *ngFor="let bet of bets" >
-    <ion-card-content >
-      <ion-card-title (click)="toBattlePage(battle)">
-        <h2>User #{{bet.UserId}}</h2>
-      </ion-card-title>
-      <ion-item>
-        <button ion-button [navPush]="makeBetPage" [navParams]="bet.id">Bet!!</button>
-      </ion-item>
-    </ion-card-content>
-  </ion-card>
+  <ion-list *ngFor="let i of [0,1]">
+    <ion-list-header><h3>Trainer {{i + 1}}: {{trainers[i].name}}</h3></ion-list-header>
 
+    <ion-item *ngFor="let pokemon of battle.teams[i+1].pokemons">
+    <ion-avatar item-left>
+      <img src='/assets/sprites/pokemon/{{pokemon}}.png'>
+    </ion-avatar>
+    <h5>{{pokemon}}</h5>
+    </ion-item>
+  </ion-list>
+  <div *ngIf="masterService.isLogged() ">
+  <button ion-button full [navPush]="makeBetPage" [navParams]="{event: battle, type: 'battles'}" >BET</button>
+  <div *ngIf="isAnyBet()">
+  <h3>Bets:</h3>
+    <ion-card *ngFor="let bet of bets" >
+      <ion-card-content >
+        <ion-card-title (click)="toBattlePage(battle)">
+          <h2>User #{{bet.user}}</h2>
+        </ion-card-title>
+        <ion-item >
+          <button ion-button [navPush]="makeBetPage" [navParams]="{event: bet, type: 'bets'}">Bet!!</button>
+        </ion-item>
+      </ion-card-content>
+    </ion-card>
+  </div>
+  </div>
 </ion-content>
