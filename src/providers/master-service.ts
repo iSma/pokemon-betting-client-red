@@ -6,7 +6,7 @@ import 'rxjs/add/operator/map';
 import { NavController} from 'ionic-angular';
 import jwtDecode from 'jwt-decode';
 
-import { Battle, Bet, Login, Account, Trainer} from '../models/models';
+import { Battle, Bet, Login, Account, Trainer, Pokemon} from '../models/models';
 import { HomePage } from '../pages/home/home'
 
 
@@ -68,6 +68,7 @@ export class MasterService {
       console.log('request new token');
       setTimeout(() => this.refreshToken(), 240000);
       MasterService.ISLOGGED = true;
+      login.id = jwtDecode(data['_body']).sub;
       this.storage.set('login',login);
       return 'success';
     })
@@ -121,6 +122,12 @@ export class MasterService {
     })
   }
 
+   loadBet(status): Observable<Bet[]> {
+    return this.http.get(`${API}/bets?status=${status}`)
+    .map(res => res.json())
+    .catch(this.handleError);
+  }
+
   refreshToken(){
     console.log("refresh token")
     this.getToken().then(t => {
@@ -141,6 +148,13 @@ export class MasterService {
   isLogged(){
     return MasterService.ISLOGGED;
   }
+
+  getPokemons() :Observable<Pokemon[]>{
+    return this.http.get(`${API}/pokemons`)
+    .map(res => res.json())
+    .catch(this.handleError);
+  }
+
 
   private handleError(error) {
     console.error(error);

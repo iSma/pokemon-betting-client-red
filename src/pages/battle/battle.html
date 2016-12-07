@@ -14,27 +14,30 @@
 
 
 <ion-content padding>
+<p>Start  {{getLocalTime(battle.startTime)}} </p>
   <ion-list *ngFor="let i of [0,1]">
     <ion-list-header><h3>Trainer {{i + 1}}: {{trainers[i].name}}</h3></ion-list-header>
 
-    <ion-item *ngFor="let pokemon of battle.teams[i+1].pokemons">
+    <ion-item *ngFor="let pokemon of battle.teams[i+1].pokemons" (click)="alertPokInfo(pokemon)">
     <ion-avatar item-left>
       <img src='/assets/sprites/pokemon/{{pokemon}}.png'>
     </ion-avatar>
-    <h5>{{pokemon}}</h5>
+    <h5 *ngIf=pokemons>{{getPokemon(pokemon).name}}</h5>
     </ion-item>
   </ion-list>
   <div *ngIf="masterService.isLogged() ">
-  <button ion-button full [navPush]="makeBetPage" [navParams]="{event: battle, type: 'battles'}" >BET</button>
+  <button ion-button full [navPush]="makeBetPage" [navParams]="{event: battle, type: 'battles', choices: [trainers[0].name, trainers[1].name]}" >BET</button>
   <div *ngIf="isAnyBet()">
-  <h3>Bets:</h3>
+  <p> </p>
+  <h1>Bets:</h1>
     <ion-card *ngFor="let bet of bets" >
       <ion-card-content >
         <ion-card-title (click)="toBattlePage(battle)">
-          <h2>User #{{bet.user}}</h2>
+          <h2> Bet #{{bet.id}}</h2>
+          <h3>User #{{bet.user}} on {{getType(bet.parent)}} #{{bet.parent||bet.battle}}</h3>
         </ion-card-title>
         <ion-item >
-          <button ion-button [navPush]="makeBetPage" [navParams]="{event: bet, type: 'bets'}">Bet!!</button>
+          <button ion-button [navPush]="makeBetPage" [navParams]="{event: bet, type: 'bets', choices:['is right', 'is wrong']}">Bet!!</button>
         </ion-item>
       </ion-card-content>
     </ion-card>

@@ -23,7 +23,7 @@
       </ion-item>
       <ion-item>
         <p>Start  {{getLocalTime(battle.startTime)}} </p>
-        <button ion-button *ngIf="masterService.isLogged()" [navPush]="makeBetPage" [navParams]="{event: battle, type: 'battles'}">Bet!!</button>
+        <button ion-button *ngIf="masterService.isLogged()" [navPush]="makeBetPage" [navParams]="{event: battle, type: 'battles', choices: [getTrainer(battle.teams['1'].trainer).name, getTrainer(battle.teams['2'].trainer).name]}">Bet!!</button>
       </ion-item>
     </ion-card-content>
   </ion-card>

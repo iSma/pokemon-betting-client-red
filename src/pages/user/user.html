@@ -31,6 +31,7 @@
   </ion-item>
 
 </ion-list>
+<p></p>
 <ion-list>
 <form (ngSubmit)="addMoney()">
       <ion-item>
@@ -41,4 +42,19 @@
 </form>
 <button ion-button color="danger" (click)="logout()" block>LOGOUT</button>
 </ion-list>
+<h2> Active Bets: </h2>
+<ion-list>
+<ion-item *ngFor="let bet of aBets">
+Bet #{{bet.id}} on {{getType(bet.parent)}}: #{{bet.parent||bet.battle}}
+</ion-item>
+</ion-list>
+<h2> Finished Bets: </h2>
+<ion-list>
+<ion-item *ngFor="let bet of fBets" i>
+<span ng-class="getResult(bet.won)">
+Bet #{{bet.id}} on {{getType(bet.parent)}}: #{{bet.parent||bet.battle}}
+</span>
+</ion-item>
+</ion-list>
+
 </ion-content>

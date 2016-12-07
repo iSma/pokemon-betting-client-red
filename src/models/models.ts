@@ -21,17 +21,33 @@ export class Trainer{
 }
 
 export class Bet {
-  id: string;
-  user: string;
+  id: number;
+  user: number;
+  result:number;
+  battle:number;
+  parent:number;
+  won:string;
 }
 
 export class Login {
   name: string;
   pass: string;
+  id: number;
 }
 
 export class Account {
   name: string;
   mail: string;
   pass: string;
+}
+
+export class Pokemon {
+  name: string;
+  id: number;
+  hp: number;
+  atk: number;
+  def: number;
+  spatk: number;
+  spdef: number;
+  speed: number;
 }

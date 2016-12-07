@@ -19,7 +19,7 @@
         <ion-label>Amount</ion-label>
         <ion-input type="number" [(ngModel)]="bet.amount" name="amount"></ion-input>
       </ion-item>
-      <button ion-button (click)="bet.choice = 1" type="submit" block>Trainer1</button>
-      <button ion-button (click)="bet.choice = 2" type="submit" block>Trainer2</button>
+      <button ion-button (click)="bet.choice = 1" type="submit" block>{{choices[0]}}</button>
+      <button ion-button (click)="bet.choice = 2" type="submit" block>{{choices[1]}}</button>
 </form>
 </ion-content>

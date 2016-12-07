@@ -18,21 +18,24 @@ import { BattlesService } from '../../providers/battles-service';
   providers: [MasterService]
 })
 export class MakeBetPage {
+public choices;
 public eventId;
 public eventType;
 public bet = {
   choice:0,
   amount:0
 };
+public choice;
   constructor(public navCtrl: NavController, public params:NavParams, private alertCtrl: AlertController, public masterService: MasterService, public events: Events) {
   	this.eventId = params.data.event.id;
     this.eventType = params.data.type;
+    this.choices = params.data.choices;
   }
 
   logForm(text) {
   let alert = this.alertCtrl.create({
     title: 'Confirm bet',
-    message: `You really want to bet ${this.bet.amount} on trainer${this.bet.choice}`,
+    message: `You really want to bet ${this.bet.amount} on ${this.choices[this.bet.choice-1]} ?`,
     buttons: [
       {
         text: 'Cancel',
