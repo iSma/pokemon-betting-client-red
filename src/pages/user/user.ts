@@ -21,6 +21,7 @@ export class UserPage {
   public balance;
   constructor(public navCtrl: NavController, public masterService: MasterService) {
     this.load();
+    this.balance = 0;
   }
 
 
@@ -39,6 +40,11 @@ export class UserPage {
     this.masterService.getBalance().then(b => {console.log(b.balance); this.balance = b.balance});
   }
 
+  logout(){
+    console.log("logout");
+    this.masterService.rmLogin();
+    this.navCtrl.pop();
+  }
 
 
   ionViewDidLoad() {

@@ -29,7 +29,7 @@ public bet = {
     this.eventType = params.data.type;
   }
 
-  logForm() {
+  logForm(text) {
   let alert = this.alertCtrl.create({
     title: 'Confirm bet',
     message: `You really want to bet ${this.bet.amount} on trainer${this.bet.choice}`,
@@ -46,11 +46,11 @@ public bet = {
         handler: () => {
           this.masterService.postBet(this.eventType,this.eventId,this.bet)
           .then(rep =>  {
-            this.events.publish('reloadBattlePage');
             console.log(rep);
+            this.events.publish('reloadBattlePage');
             this.navCtrl.pop();
           })
-          .catch(err => console.log(err));
+          .catch(err => console.error(err));
         }
       }
     ]

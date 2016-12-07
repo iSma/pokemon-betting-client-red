@@ -20,7 +20,7 @@
       {{login.name}}
   </ion-item>
 
-  <ion-item *ngIf(balance)>
+  <ion-item>
     <ion-icon name="card" item-left></ion-icon>
       {{balance}}
   </ion-item>
@@ -39,6 +39,6 @@
       </ion-item>
       <button ion-button type="submit" block>Add money</button>
 </form>
-<button ion-button color="danger" block>LOGOUT</button>
+<button ion-button color="danger" (click)="logout()" block>LOGOUT</button>
 </ion-list>
 </ion-content>

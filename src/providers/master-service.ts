@@ -35,6 +35,11 @@ export class MasterService {
     return this.storage.get('login').then(t => t);
   }
 
+  rmLogin(){
+    this.storage.clear();
+    MasterService.ISLOGGED = false;
+  }
+
   loadBattle(): Observable<Battle[]> {
     return this.http.get(`${API}/battles`)
     .map(res => res.json())
@@ -86,8 +91,7 @@ export class MasterService {
     return this.getToken().then(t =>{
       return this.http.post(`${API}/${type}/${id}/bets?token=${t}`, body)
       .toPromise()
-      .catch(error => error)
-      .then(resp => resp)
+      .then(resp => resp.json())
     })
   }
 
