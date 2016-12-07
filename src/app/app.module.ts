@@ -5,8 +5,8 @@ import { MyApp } from './app.component';
 import { HomePage } from '../pages/home/home';
 import { MakeBetPage } from '../pages/makeBet/makeBet';
 import { BattlePage } from '../pages/battle/battle';
+import { UserPage } from '../pages/user/user';
 import { LoginPage } from '../pages/login/login';
-import { Signin } from '../pages/signin/signin';
 import { MasterService } from '../providers/master-service';
 
 @NgModule({
@@ -16,7 +16,7 @@ import { MasterService } from '../providers/master-service';
     MakeBetPage,
     BattlePage,
     LoginPage,
-    Signin
+    UserPage
 
   ],
   imports: [
@@ -29,7 +29,7 @@ import { MasterService } from '../providers/master-service';
     MakeBetPage,
     BattlePage,
     LoginPage,
-    Signin
+    UserPage
   ],
   providers: [
     MasterService,

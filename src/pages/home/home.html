@@ -2,7 +2,7 @@
   <ion-navbar>
     <ion-title>Home</ion-title>
     <ion-buttons end>
-      <button ion-button icon-only [navPush]="loginPage">
+      <button ion-button icon-only (click)="toLogOrUserPage()">
         <ion-icon name="person"></ion-icon>
       </button>
     </ion-buttons>
@@ -19,11 +19,11 @@
          </button>
       </ion-card-title>
       <ion-item>
-      <p >  {{getTrainer(battle.Teams[0].TrainerId).name}} vs {{getTrainer(battle.Teams[1].TrainerId).name}} </p>
+      <p *ngIf=trainers>  {{getTrainer(battle.teams['1'].trainer).name}} vs {{getTrainer(battle.teams['2'].trainer).name}} </p>
       </ion-item>
       <ion-item>
         <p>Start  {{getLocalTime(battle.startTime)}} </p>
-        <button ion-button [navPush]="makeBetPage" [navParams]="battle">Bet!!</button>
+        <button ion-button *ngIf="masterService.isLogged()" [navPush]="makeBetPage" [navParams]="{event: battle, type: 'battles'}">Bet!!</button>
       </ion-item>
     </ion-card-content>
   </ion-card>

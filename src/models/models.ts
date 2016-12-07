@@ -1,9 +1,16 @@
 export class Battle {
   id: string;
   startTime: string;
-  Teams: [{
-    TrainerId: number;
-  }]
+  teams: {
+    1:{
+    trainer: number;
+    Pokemons: number;
+    };
+    2:{
+    trainer: number;
+    pokemons: number;
+    };
+  };
 }
 
 export class Trainer{
@@ -15,7 +22,7 @@ export class Trainer{
 
 export class Bet {
   id: string;
-  UserId: string;
+  user: string;
 }
 
 export class Login {

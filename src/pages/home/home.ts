@@ -8,6 +8,7 @@ import { MasterService } from '../../providers/master-service';
 import { MakeBetPage } from '../makeBet/makeBet';
 import { BattlePage } from '../battle/battle';
 import { LoginPage } from '../login/login';
+import { UserPage } from '../user/user';
 
 import moment from 'moment'
 
@@ -20,17 +21,13 @@ import moment from 'moment'
 export class HomePage {
   public battles: Battle[];
   public trainers: Trainer[];
-  public loadingDone: boolean;
-  public n;
 
   public makeBetPage = MakeBetPage;
   public loginPage = LoginPage;
+  public userPage = UserPage;
 
   constructor(public navCtrl: NavController, public masterService: MasterService) {
-    this.loadingDone = false;
     this.load();
-    this.n = 0;
-
   }
 
   load() {
@@ -44,11 +41,22 @@ export class HomePage {
     return this.trainers.find(t => t.id == id);
   }
 
-  toBattlePage(battle) {
-    this.navCtrl.push(BattlePage,battle);
+  toBattlePage(battle: Battle) {
+    this.navCtrl.push(BattlePage,{battle: battle,trainers: [this.getTrainer(battle.teams['1'].trainer), this.getTrainer(battle.teams['2'].trainer)]});
   };
+
+  toLogOrUserPage(){
+    console.log('click');
+    if (this.masterService.isLogged()){
+      console.log("goto user page");
+        this.navCtrl.push(this.userPage);
+      } else {
+        this.navCtrl.push(this.loginPage);
+      }
+  }
 
   getLocalTime(time) {
     return moment(new Date(time)).fromNow();
   }
+
 }
