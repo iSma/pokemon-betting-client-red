@@ -41,9 +41,8 @@ export class UserPage {
 
   load(){
     this.masterService.getLogin().then(l => this.login = l).then( any => {
-      this.masterService.getToken().then(t => this.token = t);
+      this.masterService.getToken().then(t => this.token = t).then( any => { this.getBets()});
       this.masterService.getBalance().then(b => {console.log(b.balance); this.balance = b.balance});
-      this.getBets();
     });
   }
 
@@ -54,10 +53,10 @@ export class UserPage {
   }
 
   getBets(){
-    console.log(this.login);
-    this.masterService.loadBet('active')
+    console.log(this.token);
+    this.masterService.loadBetOfUser(this.login.id, this.token, 'active')
       .subscribe((data) => this.aBets = data.filter(b => b.user == this.login.id));
-    this.masterService.loadBet('ended')
+    this.masterService.loadBetOfUser(this.login.id, this.token, 'ended')
       .subscribe((data) => this.fBets = data.filter(b => b.user == this.login.id));
   }
 

@@ -128,6 +128,12 @@ export class MasterService {
     .catch(this.handleError);
   }
 
+  loadBetOfUser(id, token, status):Observable<Bet[]> {
+    return this.http.get(`${API}/users/${id}/bets?token=${token}&status=${status}`)
+    .map(res => res.json())
+    .catch(this.handleError);
+  }
+
   refreshToken(){
     console.log("refresh token")
     this.getToken().then(t => {
