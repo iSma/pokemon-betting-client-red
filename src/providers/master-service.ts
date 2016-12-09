@@ -6,7 +6,7 @@ import 'rxjs/add/operator/map';
 import { NavController} from 'ionic-angular';
 import jwtDecode from 'jwt-decode';
 
-import { Battle, Bet, Login, Account, Trainer, Pokemon} from '../models/models';
+import { Battle, Bet, Login, Account, Trainer, Pokemon, Transaction} from '../models/models';
 import { HomePage } from '../pages/home/home'
 
 
@@ -130,6 +130,12 @@ export class MasterService {
 
   loadBetOfUser(id, token, status):Observable<Bet[]> {
     return this.http.get(`${API}/users/${id}/bets?token=${token}&status=${status}`)
+    .map(res => res.json())
+    .catch(this.handleError);
+  }
+
+  loadTransaction(id, token):Observable<Transaction[]> {
+    return this.http.get(`${API}/users/${id}/transactions?token=${token}`)
     .map(res => res.json())
     .catch(this.handleError);
   }

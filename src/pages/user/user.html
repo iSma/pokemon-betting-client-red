@@ -50,10 +50,11 @@ Bet #{{bet.id}} on {{getType(bet.parent)}}: #{{bet.parent||bet.battle}}
 </ion-list>
 <h2> Finished Bets: </h2>
 <ion-list>
-<ion-item *ngFor="let bet of fBets" i>
-<span ng-class="getResult(bet.won)">
+<ion-item *ngFor="let bet of fBets">
+<div class={{getResult(bet)}} >
 Bet #{{bet.id}} on {{getType(bet.parent)}}: #{{bet.parent||bet.battle}}
-</span>
+<p *ngIf(transactions)>{{getIncome(bet)}}</p>
+</div>
 </ion-item>
 </ion-list>
 

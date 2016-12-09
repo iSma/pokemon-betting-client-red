@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { NavController } from 'ionic-angular';
 import { MasterService } from '../../providers/master-service';
-import { Login, Account, Bet} from '../../models/models';
+import { Login, Account, Bet, Transaction} from '../../models/models';
 
 /*
   Generated class for the User page.
@@ -19,6 +19,7 @@ export class UserPage {
   public amount:number;
   public token;
   public balance;
+  public transactions: Transaction[];
   public aBets: Bet[];
   public fBets: Bet[];
 
@@ -41,8 +42,11 @@ export class UserPage {
 
   load(){
     this.masterService.getLogin().then(l => this.login = l).then( any => {
-      this.masterService.getToken().then(t => this.token = t).then( any => { this.getBets()});
-      this.masterService.getBalance().then(b => {console.log(b.balance); this.balance = b.balance});
+      this.masterService.getToken().then(t => this.token = t).then( any => {
+        this.getBets();
+        this.masterService.loadTransaction(this.login.id, this.token).
+          subscribe(data => this.transactions = data)});
+        this.masterService.getBalance().then(b => {console.log(b.balance); this.balance = b.balance});
     });
   }
 
@@ -55,9 +59,18 @@ export class UserPage {
   getBets(){
     console.log(this.token);
     this.masterService.loadBetOfUser(this.login.id, this.token, 'active')
-      .subscribe((data) => this.aBets = data.filter(b => b.user == this.login.id));
+      .subscribe((data) => this.aBets = data);
     this.masterService.loadBetOfUser(this.login.id, this.token, 'ended')
-      .subscribe((data) => this.fBets = data.filter(b => b.user == this.login.id));
+      .subscribe((data) => this.fBets = data)
+  }
+
+  getIncome(bet){
+    let deposit = this.transactions.find(t => (t.type == 'bet' && t.bet == bet.id));
+    console.log(deposit.amount);
+    if (bet.choice != bet.result ) return deposit.amount;
+    let income = this.transactions.find(t => (t.type == 'win' && t.bet == bet.id));
+    return `+${income.amount}`;
+
   }
 
   getType(p){
@@ -66,7 +79,7 @@ export class UserPage {
   }
 
   getResult(w){
-    if (w) return 'win';
+    if (w.choice == w.result) return 'win';
     else return 'loose';
   }
 

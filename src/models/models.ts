@@ -23,6 +23,7 @@ export class Trainer{
 export class Bet {
   id: number;
   user: number;
+  choice:number;
   result:number;
   battle:number;
   parent:number;
@@ -50,4 +51,10 @@ export class Pokemon {
   spatk: number;
   spdef: number;
   speed: number;
+}
+
+export class Transaction {
+  amount:string;
+  type:string;
+  bet:number;
 }
