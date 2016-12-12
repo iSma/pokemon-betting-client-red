@@ -2,10 +2,6 @@ import { Component } from '@angular/core';
 import { NavController, NavParams, AlertController, Events } from 'ionic-angular';
 import { MasterService } from '../../providers/master-service';
 
-
-import { Battle } from '../../models/models';
-import { BattlesService } from '../../providers/battles-service';
-
 /*
   Generated class for the Bet page.
 

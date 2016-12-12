@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { NavController } from 'ionic-angular';
 import { MasterService } from '../../providers/master-service';
-import { Login, Account, Bet, Transaction} from '../../models/models';
+import { Login, Bet, Transaction} from '../../models/models';
 
 /*
   Generated class for the User page.

@@ -4,8 +4,6 @@ import { NavController, AlertController } from 'ionic-angular';
 
 
 import { MasterService } from '../../providers/master-service';
-import { Login, Account} from '../../models/models';
-import { HomePage } from '../home/home'
 
 @Component({
   selector: 'page-login',

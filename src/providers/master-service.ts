@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { Http, Headers} from '@angular/http';
+import { Http} from '@angular/http';
 import { Storage } from '@ionic/storage';
 import { Observable } from 'rxjs/Rx';
 import 'rxjs/add/operator/map';
@@ -7,11 +7,9 @@ import { NavController} from 'ionic-angular';
 import jwtDecode from 'jwt-decode';
 
 import { Battle, Bet, Login, Account, Trainer, Pokemon, Transaction, TrainerStat} from '../models/models';
-import { HomePage } from '../pages/home/home'
 
 
 const API = 'http://localhost:3000';
-const HEAD = new Headers({'Content-Type': 'application/json'});
 
 @Injectable()
 export class MasterService {
