@@ -20,6 +20,15 @@ export class Trainer{
   country: string;
 }
 
+export class TrainerStat{
+  battles:{
+    total:number;
+    won:number;
+    lost:number;
+  }
+
+}
+
 export class Bet {
   id: number;
   user: number;

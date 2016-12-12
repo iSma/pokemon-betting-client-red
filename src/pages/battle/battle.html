@@ -16,7 +16,7 @@
 <ion-content padding>
 <p>Start  {{getLocalTime(battle.startTime)}} </p>
   <ion-list *ngFor="let i of [0,1]">
-    <ion-list-header><h3>Trainer {{i + 1}}: {{trainers[i].name}}</h3></ion-list-header>
+    <ion-list-header (click)="alertTrainerInfo(trainers[i])"><h3>Trainer {{i + 1}}: {{trainers[i].name}}</h3></ion-list-header>
 
     <ion-item *ngFor="let pokemon of battle.teams[i+1].pokemons" (click)="alertPokInfo(pokemon)">
     <ion-avatar item-left>

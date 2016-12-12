@@ -6,7 +6,7 @@ import 'rxjs/add/operator/map';
 import { NavController} from 'ionic-angular';
 import jwtDecode from 'jwt-decode';
 
-import { Battle, Bet, Login, Account, Trainer, Pokemon, Transaction} from '../models/models';
+import { Battle, Bet, Login, Account, Trainer, Pokemon, Transaction, TrainerStat} from '../models/models';
 import { HomePage } from '../pages/home/home'
 
 
@@ -56,6 +56,13 @@ export class MasterService {
     return this.http.get(`${API}/trainers`)
     .map(res => res.json())
     .catch(this.handleError);
+  }
+
+  getTrainerStat(id): Promise<TrainerStat>{
+    return this.http.get(`${API}/trainers/${id}/stats`)
+    .toPromise()
+    .then(data => data.json() )
+    .catch(err => err);
   }
 
   postLogin(login){

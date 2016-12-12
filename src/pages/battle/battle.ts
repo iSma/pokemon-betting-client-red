@@ -24,6 +24,7 @@ export class BattlePage {
   public trainers: Trainer[];
   public pokemons: Pokemon[];
   public makeBetPage = MakeBetPage;
+  public winrate;
 
 
   constructor(public navCtrl: NavController,public params:NavParams, public masterService:MasterService, public events: Events, public alertCtrl: AlertController) {
@@ -66,7 +67,7 @@ export class BattlePage {
     let pokemon = this.getPokemon(id);
 
     let alert = this.alertCtrl.create({
-      title: pokemon.name,
+      title: `<b> Pokemon: </b> ${pokemon.name}`,
       subTitle: ` <b>hp: </b>${pokemon.hp} <br>
                   <b>atk: </b>${pokemon.atk} <br>
                   <b>def: </b>${pokemon.def} <br>
@@ -74,6 +75,21 @@ export class BattlePage {
       buttons: ['OK']
     });
     alert.present();
+  }
+
+  alertTrainerInfo(trainer){
+    this.masterService.getTrainerStat(trainer.id).then( stat => {
+      console.log(stat);
+      let winrate= Math.round(stat.battles.won/stat.battles.total*100);
+      let alert = this.alertCtrl.create({
+        title: `<b>Trainer: </b> ${trainer.name}`,
+        subTitle: ` <b>origin: </b>${trainer.country} <br>
+                    <b>gender: </b>${trainer.gender} <br>
+                    <b>Win ratio: </b>${winrate}%<br>`,
+        buttons: ['OK']
+      });
+      alert.present();
+   })
   }
 
 
