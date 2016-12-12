@@ -7,6 +7,7 @@ import { MakeBetPage } from '../pages/makeBet/makeBet';
 import { BattlePage } from '../pages/battle/battle';
 import { UserPage } from '../pages/user/user';
 import { LoginPage } from '../pages/login/login';
+import { BetPage } from '../pages/bet/bet';
 import { MasterService } from '../providers/master-service';
 
 @NgModule({
@@ -16,7 +17,8 @@ import { MasterService } from '../providers/master-service';
     MakeBetPage,
     BattlePage,
     LoginPage,
-    UserPage
+    UserPage,
+    BetPage
 
   ],
   imports: [
@@ -29,7 +31,8 @@ import { MasterService } from '../providers/master-service';
     MakeBetPage,
     BattlePage,
     LoginPage,
-    UserPage
+    UserPage,
+    BetPage
   ],
   providers: [
     MasterService,

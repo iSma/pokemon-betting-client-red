@@ -37,6 +37,7 @@ export class Bet {
   battle:number;
   parent:number;
   won:string;
+  childs:Bet[];
 }
 
 export class Login {

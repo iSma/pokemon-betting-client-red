@@ -79,8 +79,8 @@ export class UserPage {
   }
 
   getResult(w){
-    if (w.choice == w.result) return 'win';
-    else return 'loose';
+    if (w.choice == w.result) return 'checkmark';
+    else return 'close';
   }
 
   ionViewDidLoad() {

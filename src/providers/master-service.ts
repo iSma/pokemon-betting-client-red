@@ -52,6 +52,13 @@ export class MasterService {
     .catch(this.handleError);
   }
 
+  loadBetsOfBet(eventId): Observable<Bet[]>{
+    return this.http.get(`${API}/bets/${eventId}/bets`)
+    .map(res => res.json())
+    .catch(this.handleError);
+  }
+
+
   loadTrainer(): Observable<Trainer[]>{
     return this.http.get(`${API}/trainers`)
     .map(res => res.json())
@@ -92,6 +99,13 @@ export class MasterService {
     })
     .catch(error => error);
 
+  }
+
+  getOdd(type, id){
+    return this.http.get(`${API}/${type}/${id}/odds`)
+    .toPromise()
+    .then(odds => odds.json())
+    .catch(err => err)
   }
 
   postBet(type, id, choice){

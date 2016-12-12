@@ -21,6 +21,7 @@ export class MakeBetPage {
 public choices;
 public eventId;
 public eventType;
+public odds: number[];
 public bet = {
   choice:0,
   amount:0
@@ -30,6 +31,10 @@ public choice;
   	this.eventId = params.data.event.id;
     this.eventType = params.data.type;
     this.choices = params.data.choices;
+    this.masterService.getOdd(this.eventType, this.eventId).then(odds => {
+      this.odds = odds;
+      console.log(odds);
+      });
   }
 
   logForm(text) {
@@ -62,6 +67,13 @@ public choice;
   alert.present();
   }
 
+  getOdds(id, a){
+    let r = parseInt(a)/(this.odds[id-1] + parseInt(a));
+
+    let w = (this.odds[0] + this.odds[1]  + parseInt(a)) * r;
+    if (isNaN(w)) return 0;
+    return w
+  }
 
   ionViewDidLoad() {
     console.log(this.eventId);

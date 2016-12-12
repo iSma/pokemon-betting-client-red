@@ -3,6 +3,7 @@ import { NavController, NavParams, Events, AlertController } from 'ionic-angular
 import { MasterService } from '../../providers/master-service';
 import { Battle, Bet, Trainer, Pokemon} from '../../models/models'
 import { MakeBetPage } from '../makeBet/makeBet';
+import { BetPage } from '../bet/bet'
 
 import moment from 'moment'
 
@@ -24,6 +25,7 @@ export class BattlePage {
   public trainers: Trainer[];
   public pokemons: Pokemon[];
   public makeBetPage = MakeBetPage;
+  public betPage = BetPage;
   public winrate;
 
 
@@ -48,6 +50,15 @@ export class BattlePage {
     return (this.bets.length > 0);
   }
 
+  getChildBet(aBet:Bet){
+    if (!aBet.childs){
+    this.masterService.loadBetsOfBet(aBet.id)
+    .subscribe(data => {
+      aBet.childs = data;
+    })
+   }
+  }
+
   ionViewDidLoad() {
     console.log("battle page");
   }
@@ -57,8 +68,13 @@ export class BattlePage {
   }
 
   getType(p){
-    if(p) return "bet";
+    this.getChildBet(p);
+    if(p.parent) return "bet";
     else return "battle";
+  }
+
+  hasChild(b){
+    return b.childs.length > 0;
   }
 
   getPokemon(id){return this.pokemons.find(p => p.id == id)}
