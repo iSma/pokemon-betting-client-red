@@ -54,13 +54,24 @@ public choice;
             this.events.publish('reloadBattlePage');
             this.navCtrl.pop();
           })
-          .catch(err => console.error(err));
+          .catch(err => {
+            console.error(err);
+            this.errorAlert(err);
+            });
         }
       }
     ]
   });
-
   alert.present();
+  }
+
+  errorAlert(err){
+    let alert = this.alertCtrl.create({
+      title: 'Something went wrong',
+      subTitle: `${err.status}: ${err.statusText}`,
+      buttons: ['OK']
+    });
+    alert.present();
   }
 
   getOdds(id, a){
@@ -68,7 +79,7 @@ public choice;
 
     let w = (this.odds[0] + this.odds[1]  + parseInt(a)) * r;
     if (isNaN(w)) return 0;
-    return w
+    return Math.round(w*100)/100;
   }
 
   ionViewDidLoad() {

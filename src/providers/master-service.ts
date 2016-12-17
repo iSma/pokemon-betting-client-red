@@ -6,7 +6,7 @@ import 'rxjs/add/operator/map';
 import { NavController} from 'ionic-angular';
 import jwtDecode from 'jwt-decode';
 
-import { Battle, Bet, Login, Account, Trainer, Pokemon, Transaction, TrainerStat} from '../models/models';
+import { Battle, Bet, Login, Account, Trainer, Pokemon, Transaction, TrainerStat, UserStat} from '../models/models';
 
 
 const API = 'http://localhost:3000';
@@ -36,6 +36,7 @@ export class MasterService {
   rmLogin(){
     this.storage.clear();
     MasterService.ISLOGGED = false;
+    location.reload();
   }
 
   loadBattle(): Observable<Battle[]> {
@@ -63,8 +64,8 @@ export class MasterService {
     .catch(this.handleError);
   }
 
-  getTrainerStat(id): Promise<TrainerStat>{
-    return this.http.get(`${API}/trainers/${id}/stats`)
+  getStats(type, id){
+    return this.http.get(`${API}/${type}/${id}/stats`)
     .toPromise()
     .then(data => data.json() )
     .catch(err => err);

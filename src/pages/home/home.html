@@ -12,7 +12,7 @@
 <ion-content padding>
   <h2>Next fights!</h2>
   <ion-card *ngFor="let battle of battles" >
-    <ion-card-content >
+    <ion-card-content *ngIf(!battle.hasStarted)>
       <ion-card-title (click)="toBattlePage(battle)">
          <button ion-button color="light" >
            Battle #{{battle.id}}
@@ -22,7 +22,7 @@
       <p *ngIf=trainers>  {{getTrainer(battle.teams['1'].trainer).name}} vs {{getTrainer(battle.teams['2'].trainer).name}} </p>
       </ion-item>
       <ion-item>
-        <p>Start  {{getLocalTime(battle.startTime)}} </p>
+        <p>Start  {{getLocalTime(battle)}} </p>
         <button ion-button *ngIf="masterService.isLogged()" [navPush]="makeBetPage" [navParams]="{event: battle, type: 'battles', choices: [getTrainer(battle.teams['1'].trainer).name, getTrainer(battle.teams['2'].trainer).name]}">Bet!!</button>
       </ion-item>
     </ion-card-content>

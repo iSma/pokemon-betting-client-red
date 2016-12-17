@@ -1,10 +1,11 @@
 export class Battle {
   id: string;
   startTime: string;
+  hasStarted:boolean;
   teams: {
     1:{
     trainer: number;
-    Pokemons: number;
+    pokemons: number;
     };
     2:{
     trainer: number;
@@ -26,7 +27,14 @@ export class TrainerStat{
     won:number;
     lost:number;
   }
+}
 
+export class UserStat{
+ all:{
+    total:number;
+    won:number;
+    lost:number;
+  }
 }
 
 export class Bet {

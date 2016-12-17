@@ -35,6 +35,7 @@ export class HomePage {
       .subscribe((data) => this.trainers = data);
     this.masterService.loadBattle()
       .subscribe((data) => this.battles = data);
+    this.refreshBattle();
   }
 
   getTrainer(id){
@@ -55,8 +56,17 @@ export class HomePage {
       }
   }
 
-  getLocalTime(time) {
-    return moment(new Date(time)).fromNow();
+  refreshBattle(){
+    this.masterService.loadBattle()
+      .subscribe((data) => this.battles = data);
+    setTimeout(() => {
+      console.log('refresh battle list');
+      this.refreshBattle();
+    }, 60000);
+  }
+
+  getLocalTime(b:Battle) {
+    return moment(new Date(b.startTime)).fromNow();
   }
 
 }

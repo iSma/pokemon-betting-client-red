@@ -59,9 +59,9 @@ export class UserPage {
   getBets(){
     console.log(this.token);
     this.masterService.loadBetOfUser(this.login.id, this.token, 'active')
-      .subscribe((data) => this.aBets = data);
+      .subscribe((data) => this.aBets = data.sort(d => d.battle));
     this.masterService.loadBetOfUser(this.login.id, this.token, 'ended')
-      .subscribe((data) => this.fBets = data)
+      .subscribe((data) => this.fBets = data.sort(d => d.battle));
   }
 
   getIncome(bet){
@@ -71,6 +71,11 @@ export class UserPage {
     let income = this.transactions.find(t => (t.type == 'win' && t.bet == bet.id));
     return `+${income.amount}`;
 
+  }
+
+  getInitialBattle(b){
+    if (b.parent == null) return " ";
+    return `// root battle: #${b.battle}`;
   }
 
   getType(p){

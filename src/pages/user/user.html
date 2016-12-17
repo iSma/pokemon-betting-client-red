@@ -25,10 +25,12 @@
       {{balance}}
   </ion-item>
 
+  <!--
   <ion-item *ngIf(token)>
     <ion-icon name="key" item-left></ion-icon>
       {{token}}
   </ion-item>
+  //-->
 
 </ion-list>
 <p></p>
@@ -45,14 +47,14 @@
 <h2> Active Bets: </h2>
 <ion-list>
 <ion-item *ngFor="let bet of aBets">
-Bet #{{bet.id}} on {{getType(bet.parent)}}: #{{bet.parent||bet.battle}}
+Bet #{{bet.id}} on {{getType(bet.parent)}}: #{{bet.parent||bet.battle}} {{getInitialBattle(bet)}}
 </ion-item>
 </ion-list>
 <h2> Finished Bets: </h2>
 <ion-list>
 <ion-item *ngFor="let bet of fBets">
   <ion-icon name={{getResult(bet)}} ></ion-icon>
-  Bet #{{bet.id}} on {{getType(bet.parent)}}: #{{bet.parent||bet.battle}}
+  Bet #{{bet.id}} on {{getType(bet.parent)}}: #{{bet.parent||bet.battle}} {{getInitialBattle(bet)}}
   <p *ngIf(transactions)>{{getIncome(bet)}}</p>
   </ion-item>
 </ion-list>

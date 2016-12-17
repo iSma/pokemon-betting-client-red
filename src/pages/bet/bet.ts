@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
-import { NavController, NavParams } from 'ionic-angular';
-import { Bet} from '../../models/models'
+import { NavController, NavParams, Events} from 'ionic-angular';
+import { Bet, UserStat} from '../../models/models'
 import { MasterService } from '../../providers/master-service';
 import { MakeBetPage } from '../makeBet/makeBet';
 
@@ -20,13 +20,30 @@ export class BetPage {
   public bets: Bet[];
   public makeBetPage = MakeBetPage;
   public betPage = BetPage;
-
-  constructor(public navCtrl: NavController, public params:NavParams, public masterService:MasterService) {
+  public pBet: Bet;
+  public userStat: UserStat;
+  constructor(public navCtrl: NavController, public params:NavParams, public masterService:MasterService,  public events: Events,) {
     this.bets = params.data.bets;
+    this.pBet = params.data.pBet;
+    this.masterService.getStats('users',this.pBet.user)
+      .then(stat =>{
+        this.userStat = stat;
+        console.log(this.userStat);
+      });
+    this.events.subscribe('reloadBattlePage',() => {
+       this.load();
+    })
   }
 
   ionViewDidLoad() {
     console.log('Hello Bet Page');
+  }
+
+  load(){
+     this.masterService.loadBetsOfBet(this.pBet.id)
+    .subscribe(data => {
+      this.bets = data;
+    })
   }
 
 
@@ -39,6 +56,12 @@ export class BetPage {
       aBet.childs = data;
     })
    }
+  }
+
+  getWinRatio(w, t){
+    if(t != 0){
+    return`win ratio ${Math.round(w/t*100)}%`;
+    } else return " ";
   }
 
   getType(p){

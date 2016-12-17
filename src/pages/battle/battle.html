@@ -40,9 +40,8 @@
           <button ion-button [navPush]="makeBetPage" [navParams]="{event: bet, type: 'bets', choices:['is right', 'is wrong']}">Bet!!</button>
         </ion-item>
         <ion-item *ngIf="bet.childs && hasChild(bet)">
-        <button ion-button [navPush]="betPage" [navParams]="{bets: bet.childs}" icon-right>
-        <ion-icon name="arrow-dropright" item-right></ion-icon>
-        {{bet.childs.length}} bets
+        <button ion-button icon-only [navPush]="betPage" [navParams]="{pBet: bet, bets: bet.childs}" item-right clear>
+        <ion-badge>{{bet.childs.length}}</ion-badge>
         </button>
         </ion-item>
       </ion-card-content>

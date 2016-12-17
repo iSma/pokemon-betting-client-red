@@ -34,6 +34,9 @@ export class BattlePage {
     this.trainers = params.data.trainers;
     this.bets = [];
     this.load();
+    this.events.subscribe('reloadBattlePage',() => {
+       this.load();
+    })
   }
 
   load() {
@@ -41,9 +44,6 @@ export class BattlePage {
       .subscribe((data) => this.pokemons = data);
      this.masterService.loadBetsOfBattle(this.battle.id)
      .subscribe((data) => { this.bets = data });
-     this.events.subscribe('reloadBattlePage',() => {
-       this.load();
-    })
   }
 
   isAnyBet(){
@@ -77,7 +77,9 @@ export class BattlePage {
     return b.childs.length > 0;
   }
 
-  getPokemon(id){return this.pokemons.find(p => p.id == id)}
+  getPokemon(id){
+    return this.pokemons.find(p => p.id == id)
+  }
 
   alertPokInfo(id){
     let pokemon = this.getPokemon(id);
@@ -94,7 +96,7 @@ export class BattlePage {
   }
 
   alertTrainerInfo(trainer){
-    this.masterService.getTrainerStat(trainer.id).then( stat => {
+    this.masterService.getStats("trainers", trainer.id).then( stat => {
       console.log(stat);
       let winrate= Math.round(stat.battles.won/stat.battles.total*100);
       let alert = this.alertCtrl.create({
