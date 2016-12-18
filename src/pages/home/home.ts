@@ -47,9 +47,7 @@ export class HomePage {
   };
 
   toLogOrUserPage(){
-    console.log('click');
     if (this.masterService.isLogged()){
-      console.log("goto user page");
         this.navCtrl.push(this.userPage);
       } else {
         this.navCtrl.push(this.loginPage);
@@ -60,7 +58,6 @@ export class HomePage {
     this.masterService.loadBattle()
       .subscribe((data) => this.battles = data);
     setTimeout(() => {
-      console.log('refresh battle list');
       this.refreshBattle();
     }, 60000);
   }

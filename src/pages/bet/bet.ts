@@ -29,7 +29,6 @@ export class BetPage {
     this.masterService.getStats('users',this.pBet.user)
       .then(stat =>{
         this.userStat = stat;
-        console.log(this.userStat);
       });
     this.events.subscribe('reloadBattlePage',() => {
        this.load();

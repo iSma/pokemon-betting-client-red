@@ -6,7 +6,7 @@ import 'rxjs/add/operator/map';
 import { NavController} from 'ionic-angular';
 import jwtDecode from 'jwt-decode';
 
-import { Battle, Bet, Login, Account, Trainer, Pokemon, Transaction, TrainerStat, UserStat} from '../models/models';
+import { Battle, Bet, Login, Account, Trainer, Pokemon, Transaction} from '../models/models';
 
 
 const API = 'http://localhost:3000';
