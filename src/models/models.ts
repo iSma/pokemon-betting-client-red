@@ -40,6 +40,7 @@ export class UserStat{
 export class Bet {
   id: number;
   user: number;
+  username:string;
   choice:number;
   result:number;
   battle:number;

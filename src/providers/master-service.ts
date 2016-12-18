@@ -100,6 +100,15 @@ export class MasterService {
 
   }
 
+  getUserName(id: number){
+    return this.http.get(`${API}/users/${id}`)
+      .toPromise()
+      .then(user => user.json())
+      .catch(err => err)
+  }
+
+
+
   getOdd(type, id){
     return this.http.get(`${API}/${type}/${id}/odds`)
     .toPromise()

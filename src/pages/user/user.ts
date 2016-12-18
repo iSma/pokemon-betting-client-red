@@ -66,7 +66,6 @@ export class UserPage {
 
   getIncome(bet){
     let deposit = this.transactions.find(t => (t.type == 'bet' && t.bet == bet.id));
-    console.log(deposit.amount);
     if (bet.choice != bet.result ) return deposit.amount;
     let income = this.transactions.find(t => (t.type == 'win' && t.bet == bet.id));
     return `+${income.amount}`;

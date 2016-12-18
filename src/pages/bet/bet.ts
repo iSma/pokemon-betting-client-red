@@ -23,8 +23,9 @@ export class BetPage {
   public pBet: Bet;
   public userStat: UserStat;
   constructor(public navCtrl: NavController, public params:NavParams, public masterService:MasterService,  public events: Events,) {
-    this.bets = params.data.bets;
     this.pBet = params.data.pBet;
+    this.load();
+    this.getUName(this.pBet.user);
     this.masterService.getStats('users',this.pBet.user)
       .then(stat =>{
         this.userStat = stat;
@@ -43,7 +44,7 @@ export class BetPage {
      this.masterService.loadBetsOfBet(this.pBet.id)
     .subscribe(data => {
       this.bets = data;
-    })
+    });
   }
 
 
@@ -56,6 +57,11 @@ export class BetPage {
       aBet.childs = data;
     })
    }
+  }
+
+  getUName(id){
+    this.masterService.getUserName(id)
+      .then(u => this.pBet.username = u.name);
   }
 
   getWinRatio(w, t){

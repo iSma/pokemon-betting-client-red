@@ -7,34 +7,30 @@
 <ion-header>
 
   <ion-navbar>
-    <ion-title>bet #{{pBet.id}} of user #{{pBet.user}}</ion-title>
+    <ion-title>bet #{{pBet.id}} of user #{{pBet.user}}: {{pBet.username}}</ion-title>
   </ion-navbar>
 
 </ion-header>
 
 
 <ion-content padding>
-<h1> User #{{pBet.user}} </h1>
+<h1> {{pBet.username}} </h1>
   <p *ngIf(userStat)>
     total of bet: {{userStat.all.total}}
     <br>
     {{getWinRatio(userStat.all.won,userStat.all.total)}}
   </p>
+<button ion-button full [navPush]="makeBetPage" [navParams]="{event: pBet, type: 'bets', choices:['is right', 'is wrong']}" >BET</button>
 
 <h1>Bets:</h1>
     <ion-card *ngFor="let bet of bets" >
       <ion-card-content >
-        <ion-card-title (click)="toBattlePage(battle)">
-          <h2> Bet #{{bet.id}}</h2>
+        <ion-card-title [navPush]="betPage" [navParams]="{pBet: bet}">
+          <h2> Bet #{{bet.id}} <ion-badge *ngIf="bet.childs && hasChild(bet)">{{bet.childs.length}}</ion-badge> </h2>
           <h3>User #{{bet.user}} on {{getType(bet)}} #{{bet.parent||bet.battle}}</h3>
         </ion-card-title>
         <ion-item >
           <button ion-button [navPush]="makeBetPage" [navParams]="{event: bet, type: 'bets', choices:['is right', 'is wrong']}">Bet!!</button>
-        </ion-item>
-        <ion-item *ngIf="bet.childs && hasChild(bet)">
-        <button ion-button icon-only [navPush]="betPage" [navParams]="{pBet: bet, bets: bet.childs}" item-right clear>
-        <ion-badge>{{bet.childs.length}}</ion-badge>
-        </button>
         </ion-item>
       </ion-card-content>
     </ion-card>
