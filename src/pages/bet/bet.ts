@@ -46,9 +46,6 @@ export class BetPage {
     });
   }
 
-
-//ghetto
-
   getChildBet(aBet:Bet){
     if (!aBet.childs){
     this.masterService.loadBetsOfBet(aBet.id)
@@ -76,6 +73,6 @@ export class BetPage {
   }
 
   hasChild(b){
-    return b.childs.length > 0;
+    return (b.childs != null && b.childs.length > 0);
   }
 }

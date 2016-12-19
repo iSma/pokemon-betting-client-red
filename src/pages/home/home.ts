@@ -56,11 +56,8 @@ export class HomePage {
   }
 
   refreshBattle(){
-    this.battles = []
-    this.masterService.loadBattle()
-      .subscribe((data) => this.battles = data);
     setTimeout(() => {
-      this.refreshBattle();
+      this.load();
     }, 60000);
   }
 

@@ -21,7 +21,7 @@
     {{getWinRatio(userStat.all.won,userStat.all.total)}}
   </p>
 <button ion-button full [navPush]="makeBetPage" [navParams]="{event: pBet, type: 'bets', choices:['is right', 'is wrong']}" >BET</button>
-
+<div *ngIf="hasChild(pBet)">
 <h1>Bets:</h1>
     <ion-card *ngFor="let bet of bets" >
       <ion-card-content >
@@ -34,5 +34,6 @@
         </ion-item>
       </ion-card-content>
     </ion-card>
+</div>
 
 </ion-content>
