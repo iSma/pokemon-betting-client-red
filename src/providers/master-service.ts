@@ -9,7 +9,7 @@ import jwtDecode from 'jwt-decode';
 import { Battle, Bet, Login, Account, Trainer, Pokemon, Transaction} from '../models/models';
 
 
-const API = 'http://86.119.36.241:3000';
+const API = 'http://localhost:3000';
 
 @Injectable()
 export class MasterService {
