@@ -1,0 +1,62 @@
+<!--
+  Generated template for the User page.
+
+  See http://ionicframework.com/docs/v2/components/#navigation for more info on
+  Ionic pages and navigation.
+-->
+<ion-header>
+
+  <ion-navbar>
+    <ion-title>user</ion-title>
+  </ion-navbar>
+
+</ion-header>
+
+
+<ion-content padding>
+<ion-list *ngIf(login)>
+  <ion-item>
+    <ion-icon name="person" item-left></ion-icon>
+      {{login.name}} // id:{{login.id}}
+  </ion-item>
+
+  <ion-item>
+    <ion-icon name="card" item-left></ion-icon>
+      {{balance}}
+  </ion-item>
+
+  <!--
+  <ion-item *ngIf(token)>
+    <ion-icon name="key" item-left></ion-icon>
+      {{token}}
+  </ion-item>
+  //-->
+
+</ion-list>
+<p></p>
+<ion-list>
+<form (ngSubmit)="addMoney()">
+      <ion-item>
+        <ion-label>Amount</ion-label>
+        <ion-input type="number" [(ngModel)]="amount" name="amount"></ion-input>
+      </ion-item>
+      <button ion-button type="submit" block>Add money</button>
+</form>
+<button ion-button color="danger" (click)="logout()" block>LOGOUT</button>
+</ion-list>
+<h2> Active Bets: </h2>
+<ion-list>
+<ion-item *ngFor="let bet of aBets">
+Bet #{{bet.id}} on {{getType(bet.parent)}}: #{{bet.parent||bet.battle}} {{getInitialBattle(bet)}}
+</ion-item>
+</ion-list>
+<h2> Finished Bets: </h2>
+<ion-list>
+<ion-item *ngFor="let bet of fBets">
+  <ion-icon name={{getResult(bet)}} ></ion-icon>
+  Bet #{{bet.id}} on {{getType(bet.parent)}}: #{{bet.parent||bet.battle}} {{getInitialBattle(bet)}}
+  <p *ngIf(transactions)>{{getIncome(bet)}}</p>
+  </ion-item>
+</ion-list>
+
+</ion-content>

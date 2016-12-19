@@ -5,17 +5,23 @@
 </ion-header>
 
 <ion-content padding>
-	<ion-list>
-	  <ion-item>
-	    <ion-label floating>Username</ion-label>
-	    <ion-input type="text"></ion-input>
-	  </ion-item>
-
-	  <ion-item>
-	    <ion-label floating>Password</ion-label>
-	    <ion-input type="password"></ion-input>
-	  </ion-item>
-	</ion-list>
-	
-	<button ion-button block>Login</button>
+  <form (ngSubmit)="logForm()">
+      <ion-item>
+        <ion-label>Name</ion-label>
+        <ion-input type="text" [(ngModel)]="login.name" name="title"></ion-input>
+      </ion-item>
+      <ion-item>
+        <ion-label>Pass</ion-label>
+        <ion-input type="text" [(ngModel)]="login.pass" name="title"></ion-input>
+      </ion-item>
+      <button ion-button type="submit" block>LOGIN</button>
+  </form>
+      <ion-item>
+        no account yet ?
+      </ion-item>
+      <ion-item>
+        <ion-label>E-mail</ion-label>
+        <ion-input type="text" [(ngModel)]="mail" name="title"></ion-input>
+      </ion-item>
+      <button ion-button (click)='signUp()' block>SIGNUP</button>
 </ion-content>

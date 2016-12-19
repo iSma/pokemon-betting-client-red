@@ -1,21 +1,27 @@
 <ion-header>
   <ion-navbar>
     <ion-title>Home</ion-title>
+    <ion-buttons end>
+      <button ion-button icon-only (click)="toLogOrUserPage()">
+        <ion-icon name="person"></ion-icon>
+      </button>
+    </ion-buttons>
   </ion-navbar>
 </ion-header>
 
 <ion-content padding>
   <h2>Next fights!</h2>
   <ion-card *ngFor="let battle of battles" >
-    <ion-card-content >
+    <ion-card-content *ngIf(!battle.hasStarted)>
       <ion-card-title (click)="toBattlePage(battle)">
-         <button ion-button color="light" >
            Battle #{{battle.id}}
-         </button>
       </ion-card-title>
       <ion-item>
-        <p>Start at : {{battle.startTime}}</p>
-        <button ion-button [navPush]="makeBetPage" [navParams]="battle">Bet!!</button>
+      <p *ngIf=trainers>  {{getTrainer(battle.teams['1'].trainer).name}} vs {{getTrainer(battle.teams['2'].trainer).name}} </p>
+      </ion-item>
+      <ion-item>
+        <p>Start  {{getLocalTime(battle)}} </p>
+        <button ion-button *ngIf="masterService.isLogged()" [navPush]="makeBetPage" [navParams]="{event: battle, type: 'battles', choices: [getTrainer(battle.teams['1'].trainer).name, getTrainer(battle.teams['2'].trainer).name]}">Bet!!</button>
       </ion-item>
     </ion-card-content>
   </ion-card>
