@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 
-import { NavController } from 'ionic-angular';
+import { NavController, Events } from 'ionic-angular';
 
 import { Battle, Trainer} from '../../models/models';
 import { MasterService } from '../../providers/master-service';
@@ -26,8 +26,9 @@ export class HomePage {
   public loginPage = LoginPage;
   public userPage = UserPage;
 
-  constructor(public navCtrl: NavController, public masterService: MasterService) {
+  constructor(public navCtrl: NavController, public masterService: MasterService, public evt: Events) {
     this.load();
+    this.evt.subscribe('reloadBattlePage', () => this.load());
   }
 
   load() {
@@ -55,6 +56,7 @@ export class HomePage {
   }
 
   refreshBattle(){
+    this.battles = []
     this.masterService.loadBattle()
       .subscribe((data) => this.battles = data);
     setTimeout(() => {

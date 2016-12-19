@@ -59,9 +59,10 @@ export class UserPage {
   getBets(){
     console.log(this.token);
     this.masterService.loadBetOfUser(this.login.id, this.token, 'active')
-      .subscribe((data) => this.aBets = data)
+      .subscribe((data) => this.aBets = data.sort((a,b) => b.id - a.id))
     this.masterService.loadBetOfUser(this.login.id, this.token, 'ended')
-      .subscribe((data) => this.fBets = data);
+      .subscribe((data) =>{
+        this.fBets = data.sort((a,b) => b.id - a.id);})
   }
 
   getIncome(bet){
